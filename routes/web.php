@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserAuthController;
 
 
 Route::get('/', [App\Http\Controllers\SiteController::class, 'getHome']);
@@ -30,3 +31,14 @@ Route::get('delete/product/{product}',[App\Http\Controllers\HomeController::clas
 Route::get('edit/product/{product}',[App\Http\Controllers\HomeController::class, 'getEditProduct'])->name('getEditProduct');
 
 
+//userlogin
+Route::get('user/login', [UserAuthController::class, 'showLoginForm'])->name('user.login');
+Route::post('user/login', [UserAuthController::class, 'login']);
+
+Route::get('user/register', [UserAuthController::class, 'showRegistrationForm'])->name('user.register');
+Route::post('user/register', [UserAuthController::class, 'register']);
+
+// Protected Route for Logged-In Users (example)
+Route::middleware('auth:web')->group(function () {
+    Route::get('template', [UserController::class, 'template'])->name('getHome');
+});

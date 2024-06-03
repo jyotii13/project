@@ -27,6 +27,7 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
 
 <body>
@@ -60,18 +61,22 @@
               <li class="nav-item">
                 <a class="nav-link" href="contact.html">Contact us</a>
               </li>
+
+              @guest
+              <li><a href="{{ route('user.login') }}">Login</a></li>
+              <li><a href="{{ route('user.register') }}">Register</a></li>
+              @else
+              
+              <li>
+                  <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+                      <button type="submit">Logout</button>
+                  </form>
+              </li>
+              @endguest
+               
             </ul>
-            <div class="user_option">
-              <a href="">
-                <img src="images/user.png" alt="">
-                <span>
-                  Login
-                </span>
-              </a>
-              <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
-              </form>
-            </div>
+           
           </div>
           <div>
             <div class="custom_menu-btn ">
@@ -491,38 +496,41 @@
         <h2>
           Featured Brands
         </h2>
-        
-        @foreach($cars as $car)
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class="single-featured-cars">
-                <div class="featured-img-box">
-                    <div class="featured-cars-img">
-                        <img src="{{asset('uploads/product/'.$car->photo)}}" alt="cars">
-                    </div>
-                    <div class="featured-model-info">
-                        <p>
-                        
-                            <span class="featured-mi-span"> 3100 mi</span>
-                            <span class="featured-hp-span"> 240HP</span>
-                            
-                        </p>
-                    </div>
-                </div>
-                <div class="featured-cars-txt">
-                    <h2><a href="#">{{$car->name}}</a></h2>
-                    <h3>NPR {{$car->cost}}
-                     <p>
-                        {{$car->detail}}
-                    </p>
-                </div>
-            </div>
-        </div>
-        @endforeach
-      
+        <br>
+        <br>
+         <div class="row">
+              @foreach($cars as $car)
+              <div class="col-md-4">
+                <div class="card">      
+                 <img src="{{asset('uploads/product/'.$car->photo)}}" alt="cars" height=200> 
+                 <div class="card-body">          
+                 <h2><a href="#">{{$car->name}}</a></h2>
+                          <h3>NPR {{$car->cost}}</h3>
+                          <p>
+                              {{$car->category_id}}
+                          </p>
+                          <p>
+                              {{$car->detail}}
+                          </p>
+                      </div>
+                  </div>
+              </div>
+              @endforeach  
+              </div>
       </div>
+
+      
+      
+
+
+      
+      <a href="" class="brand-btn">
+        See More
+      </a>
     </div>
   </section>
-
+  
+  
   <!-- end contact section -->
 
   <!-- client section -->

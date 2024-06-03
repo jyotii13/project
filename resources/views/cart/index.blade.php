@@ -19,8 +19,8 @@
                     <tr>
                         <td>{{ $details['name'] }}</td>
                         <td>{{ $details['quantity'] }}</td>
-                        <td>${{ $details['price'] }}</td>
-                        <td>${{ $details['price'] * $details['quantity'] }}</td>
+                        <td>${{ $details['cost'] }}</td>
+                        <td>${{ $details['cost'] * $details['quantity'] }}</td>
                         <td>
                             <form action="{{ route('cart.remove', $id) }}" method="POST">
                                 @csrf
